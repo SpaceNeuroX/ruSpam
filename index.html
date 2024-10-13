@@ -5,51 +5,422 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ruSpamNS: Распознавание рекламы</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/java.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #121212;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(40,40,40,0.8), rgba(27,27,27,0.8));
+            color: #fff;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            color: #ff6b6b;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #e0e0e0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(30,30,30,0.9);
+            border-radius: 10px;
+            animation: fadeIn 1.2s ease-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .content-section:hover {
+            transform: scale(1.01);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .content-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+
+        .comparison-chart {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .model {
+            flex: 1;
+            margin: 0 10px;
+            padding: 40px 15px;
+            font-size: 1.2em;
+            text-align: center;
+            color: #fff;
+            border-radius: 10px;
+            background: #2b2b2b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .model:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .install-command-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #333333;
+            border-radius: 5px;
+            padding: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .install-command {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-right: 10px;
+            white-space: nowrap;
+            flex-grow: 1;
+        }
+
+        .copy-button {
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #ff4c4c;
+            transform: scale(1.05);
+        }
+
+        .button-link {
+            display: inline-block;
+            background: #4facfe;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .button-link:hover {
+            background: #00c9fe;
+            transform: translateY(-3px);
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #121212;
+            color: #fff;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, #121212);
+        }
+
+        a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .mail-link {
+            text-decoration: none;
+        }
+
+        .mail-link:hover {
+            text-decoration: none;
+        }
+
+        .joke-container {
+            position: fixed;
+            right: -250px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 220px;
+            padding: 15px;
+            background: #2e2e2e;
+            color: #fff;
+            border-radius: 10px 0 0 10px;
+            animation: slideIn 1s forwards;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideIn {
+            to { right: 0; }
+        }
+
+        .joke-text {
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            background-color: #121212;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #ff6b6b;
+            border-radius: 6px;
+            border: 3px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #ff4c4c;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 50px 15px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .content-section {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+
+            .content-section h2 {
+                font-size: 1.5em;
+            }
+
+            .comparison-chart {
+                flex-direction: column;
+            }
+
+            .model {
+                margin: 10px 0;
+                padding: 20px;
+                font-size: 1em;
+            }
+
+            .install-command-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .install-command {
+                font-size: 0.9em;
+                margin-bottom: 10px;
+            }
+
+            .copy-button {
+                padding: 8px;
+                font-size: 0.8em;
+            }
+
+            .button-link {
+                padding: 8px 15px;
+                font-size: 0.8em;
+                margin: 3px 0;
+            }
+
+            footer {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+
+            .joke-container {
+                display: none;
+            }
+        }
+
+        .code-examples {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(30,30,30,0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .code-examples h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+
+        .code-block {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        pre {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            overflow: auto;
+            margin: 0;
+        }
+
+        pre code {
+            font-size: 0.9em;
+            display: block;
+        }
+
+        .copy-button-code {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .copy-button-code:hover {
+            background: #ff4c4c;
+        }
+    </style>
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <header>
         <h1>ruSpam: Распознавание рекламы</h1>
         <p>Модели ИИ, обученные на миллионах сообщений</p>
     </header>
 
     <div class="content-section">
-        <h2>От spamNS_v1 до spamNS_v6</h2>
+        <h2>От ruSpamNS_v1 до ruSpamNS_v6</h2>
         <div class="comparison-chart">
-            <div class="model" style="background: #4682B4;">spamNS_v1</div>
-            <div class="model" style="background: #FF4500;">spamNS_v6</div>
+            <div class="model" style="background: #3b3b3b;">ruSpamNS_v1</div>
+            <div class="model" style="background: #ff5722;">ruSpamNS_v6</div>
         </div>
-        <p>Наша последняя модель, spamNS_v6, обученная на 2,5 миллиона сообщений, значительно превосходит предыдущую версию.</p>
+        <p>Наша последняя модель, ruSpamNS_v6, обученная на 2,5 миллиона сообщений, значительно превосходит предыдущую версию.</p>
     </div>
 
     <div class="content-section">
         <h2>Лёгкая интеграция с ruSpamLib</h2>
         <p>Используйте официальную библиотеку для работы с нашими моделями:</p>
-        <div class="command-section">
-            <pre class="language-bash"><code class="language-bash">pip install ruSpam</code></pre>
+        <div class="install-command-container">
+            <span class="install-command">pip install ruSpam</span>
             <button class="copy-button" onclick="copyToClipboard()">Скопировать</button>
         </div>
+        <p>
+            <a href="https://github.com/SpaceNeuroX/ruSpamLib" class="button-link" target="_blank">Посмотреть на GitHub</a>
+            <a href="https://huggingface.co/collections/NeuroSpaceX/ruspam-66db647237729f85ef53d806" class="button-link" target="_blank">Исследовать на Hugging Face</a>
+        </p>
     </div>
 
     <div class="content-section">
+        <h2>Официальный бот</h2>
+        <p>Используйте нашего официального бота для модерирования, работающего на последней модели:</p>
+        <p><a href="https://t.me/ruSpamNS_bot" class="button-link" target="_blank">Запустить бота на Telegram</a></p>
+        <p>Для технической поддержки пишите на: <a href="mailto:totoshkus@gmail.com" class="mail-link" style="color: #ff6b6b;">totoshkus@gmail.com</a></p>
+    </div>
+
+    <div class="code-examples">
         <h2>Примеры кода для API интеграции</h2>
-        <div class="code-examples">
+
+        <div class="code-block">
             <h3>Python</h3>
-            <pre class="language-python"><code class="language-python">
-import requests
+            <pre>
+<code class="language-python">import requests
 
 api_url = "https://neurospacex-ruspamlib-serverandsite.hf.space/api/check_spam"
 payload = {"message": "Текст для проверки", "model_name": "spamNS_v6"}
 
 response = requests.post(api_url, json=payload)
-print(response.json())
-            </code></pre>
-            <button class="copy-button" onclick="copyToClipboardPython()">Скопировать</button>
+print(response.json())</code>
+            </pre>
+            <button class="copy-button-code" onclick="copyCode(this)">Скопировать</button>
+        </div>
 
+        <div class="code-block">
             <h3>Java</h3>
-            <pre class="language-java"><code class="language-java">
-import java.net.HttpURLConnection;
+            <pre>
+<code class="language-java">import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.OutputStream;
 import java.io.InputStreamReader;
@@ -79,25 +450,83 @@ public class Main {
             System.out.println(response.toString());
         }
     }
-}
-            </code></pre>
-            <button class="copy-button" onclick="copyToClipboardJava()">Скопировать</button>
+}</code>
+            </pre>
+            <button class="copy-button-code" onclick="copyCode(this)">Скопировать</button>
         </div>
     </div>
 
     <footer>
-        &copy; 2024 NeuroSpaceX | Все права защищены
-        <p>
-            <a href="https://github.com/SpaceNeuroX/ruSpamLib" class="button-link">Посмотреть на GitHub</a> 
-            | 
-            <a href="https://huggingface.co/collections/NeuroSpaceX/ruspam-66db647237729f85ef53d806" class="button-link">Исследовать на Hugging Face</a>
-        </p>
+        © 2024 NeuroSpaceX | Все права защищены
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
-    <script src="script.js"></script>
+    <div class="joke-container">
+        <p class="joke-text">Почему программисты путают Хэллоуин и Рождество?<br>Потому что 31 OCT = 25 DEC.</p>
+    </div>
+
+    <script>
+        hljs.highlightAll();
+
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": { "value": "#ff6b6b" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ff6b6b",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": { "enable": true, "speed": 3 }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" }
+                }
+            },
+            "retina_detect": true
+        });
+
+        function copyToClipboard() {
+            const text = 'pip install ruSpam';
+            navigator.clipboard.writeText(text).then(function() {
+                const copyButton = document.querySelector('.copy-button');
+                copyButton.textContent = 'Скопировано';
+                copyButton.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    copyButton.textContent = 'Скопировать';
+                    copyButton.style.backgroundColor = '#ff6b6b';
+                }, 2000);
+            }, function(err) {
+                console.error('Ошибка при копировании: ', err);
+            });
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.previousElementSibling.querySelector('code');
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                button.textContent = 'Скопировано';
+                button.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    button.textContent = 'Скопировать';
+                    button.style.backgroundColor = '#ff6b6b';
+                }, 2000);
+            }, function(err) {
+                console.error('Ошибка при копировании: ', err);
+            });
+        }
+    </script>
 </body>
-</html>
+</html> модешь разбить подалуйста на файлы только ничего не менять 
