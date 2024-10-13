@@ -8,44 +8,43 @@ body {
 
 header {
     text-align: center;
-    padding: 40px 10px; /* Reduce padding for mobile */
+    padding: 60px 20px;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 header h1 {
-    font-size: 2.5em; /* Smaller font for mobile */
+    font-size: 3em;
     margin: 0;
     animation: fadeInDown 1.5s ease-in-out;
 }
 
 header p {
-    font-size: 1.2em; /* Smaller font for mobile */
+    font-size: 1.5em;
     margin-top: 10px;
     animation: fadeInDown 2s ease-in-out;
 }
 
 .content-section {
-    padding: 30px 10px; /* Reduced padding */
+    padding: 50px 20px;
     text-align: center;
     background: rgba(0, 0, 0, 0.4);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    margin: 10px auto;
+    margin: 20px auto;
     border-radius: 12px;
-    max-width: 100%; /* Full width for mobile */
+    max-width: 90%;
 }
 
 .comparison-chart {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Allow flex items to wrap */
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 .model {
-    width: 90px; /* Reduced size for mobile */
-    height: 90px; /* Reduced size for mobile */
-    margin: 10px; /* More margin for better spacing on smaller screens */
+    width: 110px;
+    height: 110px;
+    margin: 0 15px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -55,20 +54,30 @@ header p {
     transition: transform 0.3s, background 0.3s;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     color: #ffffff;
-    font-size: 1em;
+    font-size: 1.1em;
+}
+
+.model:hover {
+    background: #ff7f50;
+    transform: scale(1.15);
 }
 
 .button-link {
     background-color: #ff7f50;
     color: #ffffff;
-    padding: 10px 15px; /* Smaller padding */
+    padding: 12px 20px;
     text-decoration: none;
     border-radius: 8px;
     transition: background-color 0.3s, transform 0.3s;
-    margin: 6px;
+    margin: 8px;
     display: inline-block;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    font-size: 0.9em; /* Reduced font size */
+    font-size: 1em;
+}
+
+.button-link:hover {
+    background-color: #e36850;
+    transform: scale(1.05);
 }
 
 .command-section {
@@ -76,14 +85,13 @@ header p {
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-    flex-wrap: wrap; /* Wrap commands on smaller screens */
 }
 
 .install-command {
-    font-size: 1.3em; /* Reduced font size */
+    font-size: 1.5em;
     background-color: #444;
     color: #f0f0f0;
-    padding: 10px; /* Reduced padding */
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -91,7 +99,7 @@ header p {
 .copy-button {
     background-color: #ff7f50;
     color: #ffffff;
-    padding: 10px 15px; /* Reduced padding */
+    padding: 12px 20px;
     text-decoration: none;
     border-radius: 8px;
     margin-left: 10px;
@@ -100,58 +108,22 @@ header p {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Add media query for screens smaller than 768px (tablet and mobile) */
-@media screen and (max-width: 768px) {
-    header h1 {
-        font-size: 2em; /* Further reduce font size */
-    }
-
-    header p {
-        font-size: 1em; /* Adjust paragraph font size */
-    }
-
-    .content-section {
-        padding: 20px 10px; /* Adjust padding */
-    }
-
-    .model {
-        width: 80px; /* Smaller circles */
-        height: 80px;
-        font-size: 0.9em; /* Smaller text */
-    }
-
-    .button-link {
-        font-size: 0.85em; /* Smaller button font size */
-        padding: 8px 12px; /* Adjust padding */
-    }
-
-    .install-command {
-        font-size: 1.2em; /* Smaller command font */
-    }
-
-    .copy-button {
-        font-size: 0.85em; /* Smaller copy button font */
-        padding: 8px 12px; /* Adjust padding */
-    }
+.copy-button:hover {
+    background-color: #e36850;
+    transform: scale(1.05);
 }
 
-/* Add media query for screens smaller than 480px (mobile devices) */
-@media screen and (max-width: 480px) {
-    header h1 {
-        font-size: 1.8em; /* Adjust header font */
-    }
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    .model {
-        width: 70px; /* Smaller circles */
-        height: 70px;
-        font-size: 0.8em; /* Smaller text */
-    }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    .button-link {
-        font-size: 0.75em; /* Further reduce button font size */
-    }
-
-    .install-command {
-        font-size: 1.1em; /* Smaller command font */
-    }
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
 }
