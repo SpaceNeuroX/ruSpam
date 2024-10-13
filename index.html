@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ruSpamNS: Распознавание рекламы</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -14,39 +15,107 @@
     </header>
 
     <div class="content-section">
-        <h2>От ruSpamNS_v1 до ruSpamNS_v6</h2>
+        <h2>От spamNS_v1 до spamNS_v6</h2>
         <div class="comparison-chart">
-            <div class="model" style="background: #4682B4;">ruSpamNS_v1</div>
-            <div class="model" style="background: #FF4500;">ruSpamNS_v6</div>
+            <div class="model" style="background: #4682B4;">spamNS_v1</div>
+            <div class="model" style="background: #FF4500;">spamNS_v6</div>
         </div>
-        <p>Наша последняя модель, ruSpamNS_v6, обученная на 2,5 миллиона сообщений, значительно превосходит предыдущую версию.</p>
+        <p>Наша последняя модель, spamNS_v6, обученная на 2,5 миллиона сообщений, значительно превосходит предыдущую версию.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Тестовое API</h2>
+        <p>Выберите модель и введите текст для проверки спама.</p>
+        
+        <div class="api-form">
+            <select id="model-selector">
+                <option value="spamNS_v1">spamNS_v1</option>
+                <option value="spamNS_v6" selected>spamNS_v6</option>
+            </select>
+        
+            <textarea id="message-input" placeholder="Введите текст для проверки..." rows="5"></textarea>
+            
+            <button class="send-button" onclick="sendTestRequest()">Отправить запрос</button>
+        </div>
+    
+        <pre id="api-response" class="language-json"></pre>
     </div>
 
     <div class="content-section">
         <h2>Лёгкая интеграция с ruSpamLib</h2>
         <p>Используйте официальную библиотеку для работы с нашими моделями:</p>
         <div class="command-section">
-            <pre class="install-command">pip install ruSpam</pre>
+            <pre class="language-bash"><code class="language-bash">pip install ruSpam</code></pre>
             <button class="copy-button" onclick="copyToClipboard()">Скопировать</button>
         </div>
+    </div>
+
+    <div class="content-section">
+        <h2>Примеры кода для API интеграции</h2>
+        <div class="code-examples">
+            <h3>Python</h3>
+            <pre class="language-python"><code class="language-python">
+import requests
+
+api_url = "https://neurospacex-ruspamlib-serverandsite.hf.space/api/check_spam"
+payload = {"message": "Текст для проверки", "model_name": "spamNS_v6"}
+
+response = requests.post(api_url, json=payload)
+print(response.json())
+            </code></pre>
+            <button class="copy-button" onclick="copyToClipboardPython()">Скопировать</button>
+
+            <h3>Java</h3>
+            <pre class="language-java"><code class="language-java">
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        String apiUrl = "https://neurospacex-ruspamlib-serverandsite.hf.space/api/check_spam";
+        String payload = "{\"message\":\"Текст для проверки\",\"model_name\":\"spamNS_v6\"}";
+
+        URL url = new URL(apiUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setDoOutput(true);
+
+        try (OutputStream os = conn.getOutputStream()) {
+            os.write(payload.getBytes("UTF-8"));
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+        }
+    }
+}
+            </code></pre>
+            <button class="copy-button" onclick="copyToClipboardJava()">Скопировать</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 NeuroSpaceX | Все права защищены
         <p>
             <a href="https://github.com/SpaceNeuroX/ruSpamLib" class="button-link">Посмотреть на GitHub</a> 
             | 
             <a href="https://huggingface.co/collections/NeuroSpaceX/ruspam-66db647237729f85ef53d806" class="button-link">Исследовать на Hugging Face</a>
         </p>
-    </div>
-
-    <div class="content-section">
-        <h2>Официальный бот</h2>
-        <p>Используйте нашего официального бота для модерирования, работающего на последней модели:</p>
-        <p><a href="https://t.me/ruSpamNS_bot" class="button-link">Запустить бота на Telegram</a></p>
-        <p>Для технической поддержки пишите на: <a href="mailto:totoshkus@gmail.com" style="color: #ff7f50;">totoshkus@gmail.com</a></p>
-    </div>
-
-    <footer>
-        &copy; 2024 NeuroSpaceX | Все права защищены
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

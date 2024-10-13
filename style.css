@@ -1,9 +1,11 @@
+/* Общие стили */
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(120deg, #283048, #859398);
     color: #f0f0f0;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 header {
@@ -33,6 +35,111 @@ header p {
     margin: 20px auto;
     border-radius: 12px;
     max-width: 90%;
+    animation: fadeInUp 2s ease-in-out;
+}
+
+.api-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Отступы между элементами */
+}
+
+/* Стили для формы */
+#model-selector {
+    width: 80%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #4682B4;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+    transition: border 0.3s;
+    appearance: none; /* Убираем стандартный стиль */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABXElEQVR42mJ8/5+Bz0wA0hIBHlHlIAKhIkYBJYgUFD4wWAAqByANAkD8M8M+6XWwG5Yw5XABwYBvIAPDBFgAAABG7GgL5OiThroKqHNkHgDJVgS+HC5EQQMCAhIwIQCgD5yI4gI8AAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+#model-selector:focus {
+    border-color: #FF4500;
+    outline: none;
+}
+
+#message-input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #4682B4;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    transition: border 0.3s;
+}
+
+#message-input:focus {
+    border-color: #FF4500;
+    outline: none;
+}
+
+.send-button {
+    background-color: #4682B4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.send-button:hover {
+    background-color: #FF4500;
+}
+
+/* Стили для кнопок копирования */
+.copy-button {
+    background-color: #4682B4;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.copy-button:hover {
+    background-color: #FF4500;
+}
+
+pre {
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    text-align: left;
+    overflow-x: auto;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 0.9em;
+}
+
+/* Стили для ссылок */
+.button-link {
+    background-color: #4682B4;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.button-link:hover {
+    background-color: #FF4500;
 }
 
 .comparison-chart {
@@ -62,68 +169,18 @@ header p {
     transform: scale(1.15);
 }
 
-.button-link {
-    background-color: #ff7f50;
-    color: #ffffff;
-    padding: 12px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.3s;
-    margin: 8px;
-    display: inline-block;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    font-size: 1em;
-}
-
-.button-link:hover {
-    background-color: #e36850;
-    transform: scale(1.05);
-}
-
-.command-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-}
-
-.install-command {
-    font-size: 1.5em;
-    background-color: #444;
-    color: #f0f0f0;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.copy-button {
-    background-color: #ff7f50;
-    color: #ffffff;
-    padding: 12px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.copy-button:hover {
-    background-color: #e36850;
-    transform: scale(1.05);
-}
-
+/* Анимации */
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-40px); }
-    to { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
 }
